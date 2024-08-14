@@ -2,7 +2,7 @@ import { Context, Env } from "hono";
 import denoKv from "../../databases/denoKv.ts";
 import { User } from "../../models/user.ts";
 
-const kv = await denoKv.get();
+const kv = await denoKv.get_or_init();
 
 async function getAllUsers(c: Context<Env, "/", { in: { body: User } }>) {
   const iter = await kv.list<User>({ prefix: ["users"] });

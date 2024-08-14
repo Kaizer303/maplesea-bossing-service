@@ -1,5 +1,11 @@
-import { Hono } from "hono";
+import { Context, Hono } from "hono";
+import userRoutes from "./users/index.ts";
 
-const routes = new Hono();
+function routes(app: Hono) {
+  app.route("/users", userRoutes);
 
+  app.get("/", function _(c: Context) {
+    return c.redirect("/users");
+  });
+}
 export default routes;

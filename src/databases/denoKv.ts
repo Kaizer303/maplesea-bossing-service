@@ -1,17 +1,12 @@
-let kv: Deno.Kv;
+let kv: Deno.Kv | null = null;
 
-async function init() {
+async function get_or_init(): Promise<Deno.Kv> {
   if (!kv) {
     kv = await Deno.openKv();
   }
   return kv;
 }
 
-async function get() {
-  return await init();
-}
-
 export default {
-  init,
-  get,
+  get_or_init,
 };
